@@ -11,7 +11,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException( "Povezava z bazo DefaultConnection ni nastavljena.");
+    ?? throw new InvalidOperationException("Povezava z bazo DefaultConnection ni nastavljena.");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString).UseSeeding((context, _) => DatabaseSeeder.Seed((AppDbContext)context)));
 builder.Services.AddControllers().AddJsonOptions(options =>

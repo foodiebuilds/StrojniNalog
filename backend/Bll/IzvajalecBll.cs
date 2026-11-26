@@ -5,7 +5,7 @@ using StrojniNalog.Api.Integrations.Keycloak;
 
 namespace StrojniNalog.Api.Bll;
 
-public class IzvajalecBll(AppDbContext context,KeycloakAdminClient keycloakClient,UporabnikBll uporabnikBll)
+public class IzvajalecBll(AppDbContext context, KeycloakAdminClient keycloakClient, UporabnikBll uporabnikBll)
 {
     public async Task<List<IzvajalecDto>> PridobiAsync(
         CancellationToken cancellationToken = default)

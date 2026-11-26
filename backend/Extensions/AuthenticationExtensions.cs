@@ -26,9 +26,10 @@ public static class AuthenticationExtensions
             {
                 options.Authority = authority;
                 options.Audience = audience;
-                if (!string.IsNullOrWhiteSpace(metadataAddress)){
+                if (!string.IsNullOrWhiteSpace(metadataAddress))
+                {
                     options.MetadataAddress = metadataAddress;
-                } 
+                }
                 options.RequireHttpsMetadata = !environment.IsDevelopment();
                 options.MapInboundClaims = false;
                 options.TokenValidationParameters = new TokenValidationParameters

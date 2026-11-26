@@ -1,0 +1,119 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+
+      - name: Frontend – ESLint
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run lint
+
+      - name: Backend – dotnet format
+        run: |
+          dotnet format backend/StrojniNalog.Api.csproj --verify-no-changes
+          dotnet format tests/StrojniNalog.Api.Tests/StrojniNalog.Api.Tests.csproj --verify-no-changes
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+
+      - name: Frontend – gradnja
+        working-directory: frontend
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_KEYCLOAK_URL: ${{ vars.VITE_KEYCLOAK_URL }}
+          VITE_KEYCLOAK_REALM: strojninalog
+          VITE_KEYCLOAK_CLIENT_ID: strojninalog-frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Backend – gradnja
+        run: dotnet publish backend/StrojniNalog.Api.csproj --configuration Release --output publish/backend
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: frontend
+          path: frontend/dist
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: backend
+          path: publish/backend
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+
+      - name: Frontend – testi
+        working-directory: frontend
+        run: |
+          npm ci
+          npm test
+
+      - name: Backend – testi
+        run: dotnet test tests/StrojniNalog.Api.Tests --collect:"XPlat Code Coverage" --results-directory coverage/backend
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: pokritost
+          path: |
+            frontend/coverage
+            coverage/backend

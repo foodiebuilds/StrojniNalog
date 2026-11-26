@@ -4,7 +4,7 @@ namespace StrojniNalog.Api.Data;
 
 public static class DatabaseSeeder
 {
- public static void Seed(AppDbContext context)
+    public static void Seed(AppDbContext context)
     {
         VrstaStoritve[] storitve =
         [

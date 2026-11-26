@@ -15,7 +15,7 @@ public class EvidencaDelaController(EvidencaDelaBll evidencaBll) : ControllerBas
 {
     [HttpGet]
     [Authorize(Roles = AppRoles.Organizator + "," + AppRoles.Izvajalec)]
-    public async Task<ActionResult<EvidencaDelaDto>> Podrobnosti( int id, CancellationToken cancellationToken)
+    public async Task<ActionResult<EvidencaDelaDto>> Podrobnosti(int id, CancellationToken cancellationToken)
     {
         var evidenca = await evidencaBll.PridobiAsync(
             id, HttpContext.PridobiDostopDoNalogov(), cancellationToken);
@@ -28,7 +28,7 @@ public class EvidencaDelaController(EvidencaDelaBll evidencaBll) : ControllerBas
 
     [HttpPut]
     [Authorize(Roles = AppRoles.Izvajalec)]
-    public async Task<IActionResult> Shrani(int id,[FromBody] ShraniEvidencoDto dto,CancellationToken cancellationToken)
+    public async Task<IActionResult> Shrani(int id, [FromBody] ShraniEvidencoDto dto, CancellationToken cancellationToken)
     {
         var uporabnik = HttpContext.PridobiUporabnika();
         var rezultat = await evidencaBll.ShraniAsync(
@@ -39,7 +39,7 @@ public class EvidencaDelaController(EvidencaDelaBll evidencaBll) : ControllerBas
 
     [HttpPost("oddaja")]
     [Authorize(Roles = AppRoles.Izvajalec)]
-    public async Task<IActionResult> Oddaj(int id,[FromBody] OddajEvidencoDto dto,CancellationToken cancellationToken)
+    public async Task<IActionResult> Oddaj(int id, [FromBody] OddajEvidencoDto dto, CancellationToken cancellationToken)
     {
         var uporabnik = HttpContext.PridobiUporabnika();
         var rezultat = await evidencaBll.OddajAsync(

@@ -45,7 +45,7 @@ public class NarocilaController(NarociloBll narociloBll) : ControllerBase
 
     [HttpGet("{id:int}")]
     [Authorize(Roles = AppRoles.Narocnik + "," + AppRoles.Organizator)]
-    public async Task<ActionResult<NarociloPodrobnostiDto>> Podrobnosti(int id,CancellationToken cancellationToken)
+    public async Task<ActionResult<NarociloPodrobnostiDto>> Podrobnosti(int id, CancellationToken cancellationToken)
     {
         var uporabnik = HttpContext.PridobiUporabnika();
         var narocilo = await narociloBll.PridobiPodrobnostiAsync(

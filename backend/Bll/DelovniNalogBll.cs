@@ -74,8 +74,8 @@ public class DelovniNalogBll(AppDbContext context, IzvajalecBll izvajalecBll, Za
         return await ShraniAsync(nalog, cancellationToken);
     }
 
-    
-    private async Task<PripravaNalogaOdgovor> ShraniAsync(DelovniNalog nalog,CancellationToken cancellationToken)
+
+    private async Task<PripravaNalogaOdgovor> ShraniAsync(DelovniNalog nalog, CancellationToken cancellationToken)
     {
         context.DelovniNalogi.Add(nalog);
 

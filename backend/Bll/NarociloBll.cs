@@ -56,7 +56,7 @@ public class NarociloBll(AppDbContext context)
         };
     }
 
-    public async Task<List<NarociloSeznamDto>> PridobiSeznamAsync(int uporabnikId,bool jeOrganizator,CancellationToken cancellationToken = default)
+    public async Task<List<NarociloSeznamDto>> PridobiSeznamAsync(int uporabnikId, bool jeOrganizator, CancellationToken cancellationToken = default)
     {
         return await DostopnaNarocila(uporabnikId, jeOrganizator)
             .OrderByDescending(x => x.DatumOddaje)
@@ -73,7 +73,7 @@ public class NarociloBll(AppDbContext context)
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<NarociloPodrobnostiDto?> PridobiPodrobnostiAsync(int narociloId,int uporabnikId,bool jeOrganizator,CancellationToken cancellationToken = default)
+    public async Task<NarociloPodrobnostiDto?> PridobiPodrobnostiAsync(int narociloId, int uporabnikId, bool jeOrganizator, CancellationToken cancellationToken = default)
     {
         return await DostopnaNarocila(uporabnikId, jeOrganizator)
             .Where(x => x.Id == narociloId)
@@ -102,13 +102,13 @@ public class NarociloBll(AppDbContext context)
             .Where(x => jeOrganizator || x.NarocnikId == uporabnikId);
     }
 
-    public Task<ObravnavaNarocilaRezultat> PotrdiAsync(int narociloId,CancellationToken cancellationToken = default)
+    public Task<ObravnavaNarocilaRezultat> PotrdiAsync(int narociloId, CancellationToken cancellationToken = default)
     {
         return ObravnavaAsync(
             narociloId, StatusNarocila.Potrjeno, null, cancellationToken);
     }
 
-    public Task<ObravnavaNarocilaRezultat> ZavrniAsync(int narociloId,ZavrniNarociloDto dto,CancellationToken cancellationToken = default)
+    public Task<ObravnavaNarocilaRezultat> ZavrniAsync(int narociloId, ZavrniNarociloDto dto, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(dto.Razlog))
             return Task.FromResult(ObravnavaNarocilaRezultat.NeveljavenRazlog);
@@ -117,7 +117,7 @@ public class NarociloBll(AppDbContext context)
             narociloId, StatusNarocila.Zavrnjeno, dto.Razlog.Trim(), cancellationToken);
     }
 
-    private async Task<ObravnavaNarocilaRezultat> ObravnavaAsync(int narociloId,StatusNarocila noviStatus,string? razlog, CancellationToken cancellationToken)
+    private async Task<ObravnavaNarocilaRezultat> ObravnavaAsync(int narociloId, StatusNarocila noviStatus, string? razlog, CancellationToken cancellationToken)
     {
         var spremenjeno = await context.Narocila
             .Where(x => x.Id == narociloId && x.Status == StatusNarocila.Oddano)

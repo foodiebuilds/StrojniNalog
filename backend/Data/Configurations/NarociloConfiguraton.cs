@@ -5,7 +5,7 @@ using StrojniNalog.Api.Models.Enums;
 
 namespace StrojniNalog.Api.Data.Configurations;
 
-public class NarociloConfiguraton: IEntityTypeConfiguration<Narocilo>
+public class NarociloConfiguraton : IEntityTypeConfiguration<Narocilo>
 {
     public void Configure(EntityTypeBuilder<Narocilo> builder)
     {

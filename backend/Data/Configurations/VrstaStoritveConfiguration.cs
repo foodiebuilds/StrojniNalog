@@ -4,7 +4,7 @@ using StrojniNalog.Api.Models;
 
 namespace StrojniNalog.Api.Data.Configurations;
 
-public class VrstaStoritveConfiguration: IEntityTypeConfiguration<VrstaStoritve>
+public class VrstaStoritveConfiguration : IEntityTypeConfiguration<VrstaStoritve>
 {
     public void Configure(EntityTypeBuilder<VrstaStoritve> builder)
     {

@@ -5,7 +5,7 @@ namespace StrojniNalog.Api.ExceptionHandlers;
 
 public sealed class KeycloakExceptionHandler(ILogger<KeycloakExceptionHandler> logger) : IExceptionHandler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext,Exception exception,CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         if (exception is not KeycloakException)
             return false;

@@ -8,7 +8,7 @@ namespace StrojniNalog.Api.Bll;
 
 public class UporabnikBll(AppDbContext context)
 {
-    public Task<Uporabnik> PridobiAliUstvariAsync(ClaimsPrincipal principal,CancellationToken cancellationToken = default)
+    public Task<Uporabnik> PridobiAliUstvariAsync(ClaimsPrincipal principal, CancellationToken cancellationToken = default)
     {
         var authId = principal.FindFirstValue("sub");
 
@@ -23,7 +23,7 @@ public class UporabnikBll(AppDbContext context)
             cancellationToken);
     }
 
-    public async Task<Uporabnik> PridobiAliUstvariAsync(string authId,string? ime,string? priimek,string? email,CancellationToken cancellationToken = default)
+    public async Task<Uporabnik> PridobiAliUstvariAsync(string authId, string? ime, string? priimek, string? email, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(authId);
 

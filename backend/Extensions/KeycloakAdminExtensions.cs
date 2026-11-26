@@ -5,7 +5,7 @@ namespace StrojniNalog.Api.Extensions;
 
 public static class KeycloakAdminExtensions
 {
-    public static IServiceCollection AddKeycloakAdmin(this IServiceCollection services,IConfiguration configuration)
+    public static IServiceCollection AddKeycloakAdmin(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOptions<KeycloakAdminOptions>()
             .Bind(configuration.GetSection(KeycloakAdminOptions.SectionName))

@@ -4,9 +4,9 @@ using StrojniNalog.Api.Models;
 
 namespace StrojniNalog.Api.Data.Configurations;
 
-public class UporabnikConfiguration: IEntityTypeConfiguration<Uporabnik>
+public class UporabnikConfiguration : IEntityTypeConfiguration<Uporabnik>
 {
- public void Configure(EntityTypeBuilder<Uporabnik> builder)
+    public void Configure(EntityTypeBuilder<Uporabnik> builder)
     {
         builder.ToTable("Uporabniki");
         builder.HasKey(x => x.Id);

@@ -5,7 +5,7 @@ using StrojniNalog.Api.Integrations.Keycloak.Models;
 
 namespace StrojniNalog.Api.Integrations.Keycloak;
 
-public sealed class KeycloakTokenProvider(IHttpClientFactory httpClientFactory,IOptions<KeycloakAdminOptions> options) : IDisposable
+public sealed class KeycloakTokenProvider(IHttpClientFactory httpClientFactory, IOptions<KeycloakAdminOptions> options) : IDisposable
 {
     private readonly KeycloakAdminOptions nastavitve = options.Value;
     private readonly SemaphoreSlim zaklep = new(1, 1);

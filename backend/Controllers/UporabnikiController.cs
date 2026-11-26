@@ -16,7 +16,7 @@ public class UporabnikiController : ControllerBase
     [HttpGet("me")]
     public ActionResult<UporabnikProfilDto> MojProfil()
     {
-       var uporabnik = HttpContext.PridobiUporabnika();
+        var uporabnik = HttpContext.PridobiUporabnika();
 
         return Ok(new UporabnikProfilDto
         {

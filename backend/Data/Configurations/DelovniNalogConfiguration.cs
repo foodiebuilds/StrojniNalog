@@ -5,7 +5,7 @@ using StrojniNalog.Api.Models.Enums;
 
 namespace StrojniNalog.Api.Data.Configurations;
 
-public class DelovniNalogConfiguration: IEntityTypeConfiguration<DelovniNalog>
+public class DelovniNalogConfiguration : IEntityTypeConfiguration<DelovniNalog>
 {
     public void Configure(EntityTypeBuilder<DelovniNalog> builder)
     {

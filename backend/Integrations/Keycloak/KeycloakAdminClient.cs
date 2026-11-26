@@ -8,7 +8,7 @@ using StrojniNalog.Api.Security;
 
 namespace StrojniNalog.Api.Integrations.Keycloak;
 
-public class KeycloakAdminClient(IHttpClientFactory httpClientFactory,KeycloakTokenProvider tokenProvider,IOptions<KeycloakAdminOptions> options)
+public class KeycloakAdminClient(IHttpClientFactory httpClientFactory, KeycloakTokenProvider tokenProvider, IOptions<KeycloakAdminOptions> options)
 {
     private const int VelikostStrani = 100;
     private readonly string realm = Uri.EscapeDataString(options.Value.Realm);
